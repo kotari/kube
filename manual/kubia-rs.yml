@@ -1,0 +1,19 @@
+apiVersion: apps/v1beta2
+kind: ReplicaSet
+metadata:
+  name: kubia-rs
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubia-poa
+  template:
+    metadata:
+      labels:
+        app: kubia-poa
+    spec:
+      containers:
+      - name: kubia-pob
+        image: rkotari/kubia
+        ports:
+        - containerPort: 8080

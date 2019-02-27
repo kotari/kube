@@ -87,3 +87,15 @@ k delete ns {namespace}   # Delete the namespace along with all the pods in the 
 
 # Force delete
 k delete all --all
+
+# Probes liveness and readiness probe
+# if liveness proble bring back a new pod, previous pods logs can be inspected with 
+kubectl logs {mypod} --previous
+# Set initialDelaySeconds so pods are not restarted when they are coming up
+
+kubectl edit rc {replicationController Name}
+kubectl scale rc {replicationController Name} --replicas=10
+# Even kubectl edit rc can be used to update the number of replicas
+kubectl delete rc {replicationController Name} --cascade=false  #false does not delete the pods, changes will not be cascaded
+
+# DaemonSet, unlike replicationController or replicationSet run a pod for a node.  They can also be configured to run only on nodes that meet a criteria

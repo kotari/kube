@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: kubia-rca
+spec:
+  replicas: 3
+  selector:
+    app: kubia-poa
+  template:
+    metadata:
+      labels:
+        app: kubia-poa
+    spec:
+      containers:
+      - name: kubia-pob
+        image: rkotari/kubia
+        ports:
+        - containerPort: 8080
