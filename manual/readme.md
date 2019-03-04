@@ -83,6 +83,8 @@ k delete ns {custom namespace} # will also delete the pods under namespace
 k delete po {pod name} -n {namespace}
 k delete po --all  -n {namespace}   # Deletes all the pods in the namespace
 k delete ns {namespace}   # Delete the namespace along with all the pods in the namespace
+k delete svc {svcName}
+k delete ing {ingressName} # ing is abbrevation for ingress
 
 
 # Force delete
@@ -99,3 +101,24 @@ kubectl scale rc {replicationController Name} --replicas=10
 kubectl delete rc {replicationController Name} --cascade=false  #false does not delete the pods, changes will not be cascaded
 
 # DaemonSet, unlike replicationController or replicationSet run a pod for a node.  They can also be configured to run only on nodes that meet a criteria
+
+
+# Connecting to other pods internally -- is needed to break the commands from kubectl
+k exec {mypod} -- curl -s http://svc_ip
+k exec -it {mypod} bash --This will put in the interactive terminal just like docker
+
+minikube service {serviceName} --This is confusion still
+k get po --all-namespaces
+
+minikube addons list
+
+# To apply contents of the modified yml file
+k apply -f {path to updated yml file}
+
+kubectl run dnsutils --image=tutum/dnsutils --generator=run-pod/v1 --command -- sleep infinity
+k exec dnsutils nslookup {serviceName}
+
+k get endpoints
+
+# get environment varibales for a pod
+k exec {podName} env

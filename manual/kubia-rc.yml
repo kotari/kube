@@ -14,5 +14,10 @@ spec:
       containers:
       - name: kubia-pob
         image: rkotari/kubia
+        readinessProbe:
+          exec:
+            command:
+            - ls
+            - /var/ready
         ports:
         - containerPort: 8080
